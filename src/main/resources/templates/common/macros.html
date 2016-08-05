@@ -1,0 +1,68 @@
+
+##  分页宏
+##  使用：call pager_bar(xxx, xxx)
+
+#macro pager_bar(pager, url)
+#if(pager && pager.pages > 1)
+<ul class="pagination">
+    #set(FRONT_LEN = 4)
+    #set(BEHIND_LEN = 5)
+    #set(PAGER_LEN = 10)
+    #set(PAGER_CENTER = pager.pages - BEHIND_LEN)
+
+    <li>
+        <a href="$!{url}?page=1">首页</a>
+    </li>
+
+    #// 如果有上一页
+    #if(pager.hasPreviousPage)
+    <li>
+        <a href="$!{url}?page=${pager.prePage}">上一页</a>
+    </li>
+    #end
+
+    #if(pager.pages <= PAGER_LEN)
+    #for(p : range(1, pager.pages))
+    <li #if(pager.pageNum == p) class="active" #end>
+        <a href="$!{url}?page=$!{p}">$!{p}</a>
+    </li>
+    #end
+    #elseif(pager.pages > PAGER_LEN)
+    #if(pager.pageNum <= FRONT_LEN)
+    #for(p : range(1,10))
+    <li #if(pager.pageNum == p) class="active" #end>
+        <a href="$!{url}?page=$!{p}">$!{p}</a>
+    </li>
+    #end
+    #elseif(pager.pageNum < PAGER_CENTER)
+    #set(header = pager.pageNum - FRONT_LEN)
+    #set(ender = pager.pageNum + BEHIND_LEN)
+    #for(p : range(header, ender))
+    <li #if(pager.pageNum == p) class="active" #end>
+        <a href="$!{url}?page=$!{p}">$!{p}</a>
+    </li>
+    #end
+    #else
+    #set(begin = pager.pages - FRONT_LEN - BEHIND_LEN)
+    #for(p : range(begin, pager.pages))
+    <li #if(pager.pageNum == p) class="active" #end>
+        <a href="$!{url}?page=$!{p}">$!{p}</a>
+    </li>
+    #end
+    #end
+    #end
+
+    #// 如果有下一页
+    #if(pager.hasNextPage)
+    <li>
+        <a href="$!{url}?page=${pager.nextPage}">下一页</a>
+    </li>
+    #end
+
+    <li>
+        <a href="$!{url}?page=${pager.lastPage}">末页</a>
+    </li>
+
+</ul>
+#end
+#end
