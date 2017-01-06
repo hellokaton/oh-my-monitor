@@ -91,15 +91,17 @@ public class MonitorClient {
                 LOGGER.info("Loaded latest config: {}", services);
                 config_last_update_time = DateKit.getCurrentUnixTime();
             }
+
             for(Service service : services){
+                int current = DateKit.getCurrentUnixTime();
                 int monitor_interval = service.getInterval();
                 int lastInvokeTime = service.getLastInvoke();
-                int current = DateKit.getCurrentUnixTime();
+
                 if(current - lastInvokeTime > monitor_interval){
                     String d1 = DateKit.formatDateByUnixTime(lastInvokeTime, "yyyy-MM-dd HH:mm:ss");
                     String d2 = DateKit.formatDateByUnixTime(current, "yyyy-MM-dd HH:mm:ss");
                     LOGGER.info("Last invoke [{}], Current [{}]", d1, d2);
-                    service.setLastInvoke(current);
+                    service.setLastInvoke(DateKit.getCurrentUnixTime());
                     this.invoke(service.getName());
                     LOGGER.debug("Go Ping monitor [{}]", service.getName());
                 } else {

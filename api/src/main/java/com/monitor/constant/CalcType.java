@@ -1,6 +1,8 @@
 package com.monitor.constant;
 
 /**
+ * 计算类型
+ *
  * Created by biezhi on 2017/1/4.
  */
 public enum CalcType {
