@@ -6,12 +6,12 @@ package com.monitor.server.db;
 public class MapDbImpl implements Database {
 
     @Override
-    public String get(String key) {
+    public <T> T get(Class<T> type, String key) {
         return null;
     }
 
     @Override
-    public void set(String key, String value) {
+    public void set(String key, Object value) {
 
     }
 }

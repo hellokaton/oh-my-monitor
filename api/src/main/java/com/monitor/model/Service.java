@@ -7,10 +7,35 @@ import java.util.List;
  * Created by biezhi on 2017/1/4.
  */
 public class Service implements Serializable{
+
+    /**
+     * 服务名
+     */
     private String name;
-    private int interval;
+
+    /**
+     * 服务监控间隔，单位/秒，默认一分钟
+     */
+    private int interval = 60;
+
+    /**
+     * 最后一次执行时间
+     */
+    private int lastInvoke;
+
+    /**
+     * 服务子项
+     */
     private List<ServiceItem> items;
+
+    /**
+     * 是否有子项
+     */
     private boolean hasSubService;
+
+    /**
+     * 服务备注
+     */
     private String bak;
 
     public String getName() {
@@ -56,5 +81,13 @@ public class Service implements Serializable{
     public Service setBak(String bak) {
         this.bak = bak;
         return this;
+    }
+
+    public int getLastInvoke() {
+        return lastInvoke;
+    }
+
+    public void setLastInvoke(int lastInvoke) {
+        this.lastInvoke = lastInvoke;
     }
 }

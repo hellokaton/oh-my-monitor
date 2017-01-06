@@ -5,8 +5,8 @@ package com.monitor.server.db;
  */
 public interface Database {
 
-    String get(String key);
+    <T> T get(Class<T> type, String key);
 
-    void set(String key, String value);
+    void set(String key, Object value);
 
 }
